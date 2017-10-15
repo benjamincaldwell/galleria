@@ -1,0 +1,18 @@
+---
+layout: photo_swipe
+---
+
+{% comment %} Search for gallery {% endcomment %}
+
+{% for i in site.data.galleries %}
+	{% assign req_gall_name = page.gallery | downcase | strip %}
+	{% assign gall_name = i.name | downcase | strip %}
+
+
+	{% if gall_name == req_gall_name %}
+		{% assign gallery=i %}
+		{% break %}
+	{% endif %}
+{% endfor %}
+
+{% include gallery.html gallery=gallery %}

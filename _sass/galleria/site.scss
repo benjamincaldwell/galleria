@@ -1,5 +1,27 @@
+h2 {
+  text-align: center;
+  a {
+    color: $text-color;
+    &:visited {
+      color: $text-color;
+    }
+    &:hover {
+      text-decoration: none;
+      font-weight: 500;
+    }
+  }
+}
+
+.site-header {
+  text-align:center
+}
+
 .site-title {
   color: $text-color;
+  margin:0 auto;
+  text-align: center;
+  display:inline-block;
+  float: none;
   &:visited {
     color: $text-color;
   }
@@ -17,6 +39,17 @@
     }
     &:hover {
       color: $accent-color;
+    }
+  }
+}
+
+.gallery {
+  .item img {
+    transition: all .5s ease-in-out;
+    animation: fadein 1s;
+
+    &:hover {
+      opacity: .75;
     }
   }
 }

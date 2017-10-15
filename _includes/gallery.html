@@ -1,0 +1,36 @@
+{% assign gallery = include.gallery %}
+<h2> <a href="/{{gallery.name | downcase }}"> {{ gallery.name }}</a> </h2>
+
+{% assign layout= gallery.layout | default: "masonry" %}
+
+<div class="gallery {{layout}}" itemscope itemtype="http://schema.org/ImageGallery">
+  {% assign gallery_directory = gallery.imagefolder %}
+  {% assign gallery_pictures = gallery.pictures %}
+
+  {% unless gallery_directory %}
+    {% assign gallery_directory = gallery.name | downcase %}
+  {% endunless %}
+
+  {% unless gallery_pictures %}
+    {% capture search_path %}/pictures/{{ gallery_directory }}{% endcapture %}
+
+    {% for pic in pictures %}
+      {% if pic.path contains search_path %}
+          <a href="/pictures/{{ gallery_directory }}/{{ pic.name}}" itemprop="contentUrl">
+              <img src="/pictures/{{ gallery_directory }}/{{ pic.name}}" itemprop="thumbnail" alt="Image description" />
+          </a>
+
+      {% endif %}
+
+    {% endfor %}
+  {% endunless %}
+
+  {% for pic in gallery_pictures %}
+    <figure class="item" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+      <a href="/pictures/{{ gallery_directory }}/{{ pic.name}}" itemprop="contentUrl" data-size="{{pic.width}}x{{pic.height}}">
+          <img src="/pictures/{{ gallery_directory }}/{{ pic.thumb }}" itemprop="thumbnail" alt="Image description" />
+      </a>
+      <figcaption itemprop="caption description" style="display: none">{{ pic.caption }}</figcaption>
+    </figure>
+{% endfor %}
+</div>

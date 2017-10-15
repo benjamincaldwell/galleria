@@ -1,0 +1,7 @@
+---
+layout: gallery
+title:  Dogs
+date:   2017-08-19 17:11:02 -0400
+categories: dogs
+gallery: dogs
+---

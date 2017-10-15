@@ -2,6 +2,7 @@
 - name: Dogs
   imagefolder: dogs
   description: ''
+  # layout: tiled
   pictures:
   - name: 1.jpg
     thumb: thumbnails/1.jpg

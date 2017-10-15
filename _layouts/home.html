@@ -2,44 +2,23 @@
 layout: photo_swipe
 ---
 
+{% assign pictures = site.static_files | where: "image", true %}
 
-  {% assign pictures = site.static_files | where: "image", true %}
+{% for gallery in site.data.galleries %}
+  {% include gallery.html gallery=gallery %}
+{% endfor %}
 
-  {% for gallery in site.data.galleries %}
-    <h2> {{ gallery.name }} </h2>
-      <div class="my-gallery masonry" itemscope itemtype="http://schema.org/ImageGallery">
+<h1 class="page-heading">Posts</h1>
 
-      {% assign gallery_directory = gallery.imagefolder %}
-      {% assign gallery_pictures = gallery.pictures %}
+<ul class="post-list">
+  {% for post in site.posts %}
+    <li>
+      {% assign date_format = site.minima.date_format | default: "%b %-d, %Y" %}
+      <span class="post-meta">{{ post.date | date: date_format }}</span>
 
-      {% unless gallery_directory %}
-        {% assign gallery_directory = gallery.name | downcase %}
-      {% endunless %}
-
-      {% unless gallery_pictures %}
-        {% capture search_path %}/pictures/{{ gallery_directory }}{% endcapture %}
-
-        {% for pic in pictures %}
-          {% if pic.path contains search_path %}
-            <figure class="item" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-              <a href="/pictures/{{ gallery_directory }}/{{ pic.name}}" itemprop="contentUrl">
-                  <img src="/pictures/{{ gallery_directory }}/{{ pic.name}}" itemprop="thumbnail" alt="Image description" />
-              </a>
-              <figcaption itemprop="caption description" style="display: none">Image caption</figcaption>
-          </figure>
-          {% endif %}
-
-        {% endfor %}
-      {% endunless %}
-
-      {% for pic in gallery_pictures %}
-        <figure class="item" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-          <a href="/pictures/{{ gallery_directory }}/{{ pic.name}}" itemprop="contentUrl" data-size="{{pic.width}}x{{pic.height}}">
-              <img src="/pictures/{{ gallery_directory }}/{{ pic.thumb }}" itemprop="thumbnail" alt="Image description" />
-          </a>
-          <figcaption itemprop="caption description" style="display: none">{{ pic.caption }}</figcaption>
-        </figure>
-      {% endfor %}
-    </div>
-
+      <h2>
+        <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+      </h2>
+    </li>
   {% endfor %}
+</ul>
