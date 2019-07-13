@@ -26,7 +26,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 group :development do
-  gem "mini_magick"
+  gem "mini_magick", ">= 4.9.4"
   gem 'image_optim'
   gem 'image_optim_pack'
 end
